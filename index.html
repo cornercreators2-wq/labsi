@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Creator Lab · Sales Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ── STRUCTURE (shared) ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh}
+body{display:flex;-webkit-font-smoothing:antialiased}
+.side{width:224px;flex-shrink:0;padding:26px 18px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand-mark{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:12px}
+.brand-t{font-size:15px;font-weight:800;line-height:1.15;letter-spacing:.5px}
+.brand-s{font-size:8.5px;letter-spacing:1.4px;margin-top:6px}
+.side nav{margin-top:30px;display:flex;flex-direction:column;gap:6px}
+.nav-item{padding:10px 12px;cursor:pointer;font-size:12.5px;font-weight:600;display:flex;gap:10px;align-items:center;transition:all .12s}
+.ni-ic{font-size:13px;opacity:.75;width:16px;text-align:center}
+.side-foot{margin-top:auto;font-size:8.5px;letter-spacing:1.2px;line-height:1.7;opacity:.55}
+main{flex:1;padding:26px 34px 56px;max-width:1280px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;gap:16px;flex-wrap:wrap}
+.top-k{font-size:9px;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:3px}
+.top-p{font-size:15px;font-weight:700}
+.top-r{display:flex;align-items:center;gap:14px}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:99px}
+.tab{padding:6px 14px;border-radius:99px;font-size:11px;font-weight:600;cursor:pointer;opacity:.65}
+.tab.on{opacity:1}
+.live{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;padding:7px 14px;border-radius:99px}
+.live-dot{width:7px;height:7px;border-radius:50%}
+.view{display:none}
+.view.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.v-hd{margin-bottom:18px}
+.v-kick{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{padding:16px 18px;transition:transform .15s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi-l{font-size:9.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+.kpi-v{font-size:25px;font-weight:750;letter-spacing:-.8px;line-height:1}
+.kpi-s{font-size:10px;margin-top:7px}
+.src{font-size:8px;padding:2px 6px;border-radius:99px;margin-left:5px;letter-spacing:.5px;vertical-align:1px}
+.unit{font-size:12px;font-weight:600;margin-left:3px;letter-spacing:0}
+.panel{padding:16px 18px;margin-bottom:14px}
+.panel-t{font-size:12px;font-weight:700;margin-bottom:12px;display:flex;align-items:baseline;gap:10px}
+.panel-sub{font-size:9.5px;font-weight:500;letter-spacing:.4px;opacity:.6}
+.cw{position:relative;height:210px}
+.cw.tall{height:264px}
+.two-col{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;align-items:start}
+@media(max-width:1100px){.two-col{grid-template-columns:1fr}}
+#ov-ranks{grid-template-columns:1fr 1fr}
+.rank-row{display:flex;align-items:center;gap:10px;padding:9px 0}
+.rk{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;font-size:9.5px;font-weight:800}
+.rk-name{font-size:12px;font-weight:650;min-width:82px}
+.rk-bar{flex:1;height:4px;border-radius:2px;overflow:hidden;display:block}
+.rk-fill{display:block;height:100%;border-radius:2px}
+.rk-val{font-size:12px;font-weight:700;min-width:64px;text-align:right}
+.tbl{overflow-x:auto}
+.tbl-t{font-size:12px;font-weight:700;margin-bottom:12px;display:flex;align-items:baseline;gap:10px}
+table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+thead th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:8px 12px}
+tbody td{padding:10px 12px;font-variant-numeric:tabular-nums}
+.nm{font-weight:700}
+.sc-banner{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;margin-bottom:14px;flex-wrap:wrap;gap:14px}
+.sc-bk{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:4px}
+.sc-bv{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1}
+.sc-bs{font-size:10px;margin-top:5px}
+.sc-legend{display:flex;gap:16px;font-size:10.5px;font-weight:600}
+.sc-legend span{display:flex;align-items:center;gap:6px}
+.lg{width:9px;height:9px;border-radius:3px;display:inline-block}
+table.sc{font-size:11.5px}
+table.sc td,table.sc th{padding:8px 10px;text-align:right}
+table.sc .ml{text-align:left;font-weight:650;min-width:150px}
+table.sc td.mut{opacity:.35}
+
+/* ── OPTION 3 · CONTRAST (light page, black sidebar + black feature panels, yellow accents) ── */
+:root{--bg:#f5f4ef;--sur:#ffffff;--bd:#e6e4db;--ink:#0c0b08;--ink2:#54524b;--mut:#8f8d84;
+--y:#8bd48e;--blk:#111009;
+--good:#0a8a0a;--warn:#946e00;--bad:#c22f2f;
+--goodbg:#e7f5e7;--warnbg:#fdf2c9;--badbg:#fbe9e9}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px}
+.side{background:var(--blk);border-right:none}
+.brand-mark{background:#17160f;border:1px solid rgba(139,212,142,.35);border-radius:12px}
+.brand-t{color:#fff;font-family:'Archivo Black',sans-serif;font-weight:400;font-size:13px}
+.brand-s{color:#7e7b6a}
+.nav-item{border-radius:10px;color:#b8b49e}
+.nav-item:hover{background:#211f14;color:var(--y)}
+.nav-item.on{background:var(--y);color:var(--blk)}
+.side-foot{color:#6b6857}
+.top-k{color:var(--mut)}.top-p{color:var(--ink)}
+.tabs{background:#ecebe3}
+.tab{color:var(--ink2)}.tab.on{background:var(--blk);color:var(--y)}
+.live{background:var(--sur);border:1px solid var(--bd);color:#0a7a3c}
+.live-dot{background:#17b45f}
+.v-kick{color:#9a7c00}
+.v-hd h1{font-family:'Archivo Black',sans-serif;font-weight:400;font-size:44px;letter-spacing:-.5px;text-transform:uppercase;line-height:.95;
+background:linear-gradient(transparent 62%,var(--y) 62%);display:inline-block;padding:0 6px 2px;margin-left:-6px}
+.kpi,.panel{background:var(--sur);border:1px solid var(--bd);border-radius:14px;box-shadow:0 1px 3px rgba(20,18,8,.05)}
+.kpi.hero{background:var(--blk);border-color:var(--blk);box-shadow:0 8px 24px rgba(17,16,9,.3)}
+.kpi.hero .kpi-l{color:#b8b49e}
+.kpi.hero .kpi-s{color:#7e7b6a}
+.kpi.hero .kpi-v{color:var(--y)}
+.kpi-l{color:var(--mut)}
+.kpi-v{color:var(--ink)}
+.kpi-s{color:var(--mut)}
+.up{color:#2fbf57;font-weight:700}
+.src{background:#f1efe7;color:var(--ink2)}
+.kpi.hero .src{background:rgba(139,212,142,.16);color:var(--y);border:none}
+.panel-t{color:var(--ink)}.panel-sub{color:var(--mut)}
+.rk{background:#efede4;color:var(--ink2)}
+.rk.r1{background:var(--y);color:var(--blk)}
+.rk.r2{background:var(--blk);color:var(--y)}
+.rk.r3{background:#fff;color:var(--ink);border:1.5px solid var(--blk)}
+.rank-row{border-bottom:1px solid #f0eee6}
+.rank-row:last-child{border-bottom:none}
+.rk-name{color:var(--ink)}
+.rk-bar{background:#efede4}
+.rk-fill{background:linear-gradient(90deg,var(--blk) 70%,var(--y))}
+.rk-val{color:var(--ink);font-variant-numeric:tabular-nums}
+thead th{color:var(--mut);border-bottom:1px solid var(--bd);background:#faf9f5}
+tbody td{color:var(--ink2);border-bottom:1px solid #f0eee6}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fdf9e8}
+.nm{color:var(--ink)}
+.acc{color:var(--ink);font-weight:800}
+.sc-banner{background:var(--blk);border-radius:16px}
+.sc-bk{color:#b8b49e}.sc-bv{color:var(--y);font-family:'Archivo Black',sans-serif;font-weight:400}.sc-bs{color:#8f8d84}
+.sc-legend{color:#d9d7c9}
+.lg.good{background:#2fbf57}.lg.warn{background:var(--y)}.lg.bad{background:#f26a5e}
+table.sc td.good{color:var(--good);background:var(--goodbg);font-weight:600}
+table.sc td.warn{color:var(--warn);background:var(--warnbg);font-weight:600}
+table.sc td.bad{color:var(--bad);background:var(--badbg);font-weight:600}
+table.sc .sep{border-left:1px solid var(--bd)}
+table.sc .tgt{color:var(--mut)}
+table.sc .wt{color:var(--ink);font-weight:800}
+
+/* ── live-dashboard additions ── */
+.btn-y{background:var(--y);color:var(--blk);border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-y:hover{opacity:.9}
+.btn-y:disabled{opacity:.5;cursor:not-allowed}
+.btn-s{background:var(--sur);border:1px solid var(--bd);color:var(--ink2);padding:7px 11px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-s:hover{border-color:var(--blk);color:var(--ink)}
+.dinp{background:var(--sur);border:1px solid var(--bd);color:var(--ink);font-size:11px;padding:6px 8px;border-radius:8px;height:32px}
+.sbar{font-size:10px;color:var(--mut);margin:-14px 0 18px}
+.live.err{background:#fbe9e9;border-color:#e6b3b3;color:#c22f2f}
+.live.err .live-dot{background:#c22f2f}
+.live.warn{background:#fdf2c9;border-color:#e6d391;color:#946e00}
+.live.warn .live-dot{background:#c9a227}
+code{background:#f1efe7;padding:1px 5px;border-radius:4px;font-size:11px}
+#setup{margin-bottom:18px}
+
+
+
+
+
+
+</style>
+</head>
+<body>
+<aside class="side">
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M7.3 14.2c2.2 1.5 4.2-1 6.6.1l2.7 3.8a1.1 1.1 0 0 1-.9 1.7H7.2a1.1 1.1 0 0 1-.9-1.7z" fill="#8bd48e"/><path d="M9 3h6M10 3v5.5L4.8 17.6A2.4 2.4 0 0 0 7 21h10a2.4 2.4 0 0 0 2.2-3.4L14 8.5V5" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="brand-t">AI CREATOR<br>LAB</div>
+    <div class="brand-s">SALES OS · LIVE</div>
+  </div>
+  <nav>
+    <div class="nav-item on" onclick="showView('overview',this)"><span class="ni-ic">▦</span> Overview</div>
+    <div class="nav-item" onclick="showView('closers',this)"><span class="ni-ic">◎</span> Closers</div>
+    <div class="nav-item" onclick="showView('setters',this)"><span class="ni-ic">✆</span> Setters</div>
+    <div class="nav-item" onclick="showView('scorecard',this)"><span class="ni-ic">▤</span> Weekly Scorecard</div>
+  </nav>
+  <div class="side-foot" id="sideFoot">AI CREATOR LAB<br>SALES DASHBOARD</div>
+</aside>
+
+<main>
+  <!-- SETUP PANEL -->
+  <div id="setup" class="panel" style="border:2px solid var(--y);display:none">
+    <div class="panel-t">⚡ Connect to Live Data</div>
+    <p style="font-size:12px;color:var(--ink2);margin-bottom:10px">
+      Paste the Apps Script Web App URL (ends in <code>/exec</code>).
+      Get it from script.google.com → Deploy → Manage deployments.
+    </p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <input type="text" id="urlInput" placeholder="https://script.google.com/macros/s/…/exec"
+        style="flex:1;min-width:280px;padding:9px 12px;border-radius:8px;border:1px solid var(--bd);font-size:12px"
+        onkeydown="if(event.key==='Enter')saveUrl()">
+      <button class="btn-y" onclick="saveUrl()">Save &amp; Connect</button>
+    </div>
+  </div>
+
+  <header class="top">
+    <div>
+      <div class="top-k">Reporting period</div>
+      <div class="top-p" id="periodLabel">—</div>
+    </div>
+    <div class="top-r">
+      <div class="tabs">
+        <span class="tab" data-r="all" onclick="setRange('all',this)">All Time</span>
+        <span class="tab on" data-r="month" onclick="setRange('month',this)">This Month</span>
+        <span class="tab" data-r="week" onclick="setRange('week',this)">This Week</span>
+      </div>
+      <input type="date" id="dFrom" class="dinp" title="From">
+      <input type="date" id="dTo" class="dinp" title="To">
+      <button class="btn-s" onclick="applyCustom()">Apply</button>
+      <div class="live" id="liveBadge"><span class="live-dot"></span> <span id="liveTxt">connecting…</span></div>
+      <button class="btn-s" onclick="openSetup()">⚙</button>
+      <button class="btn-y" id="refreshBtn" onclick="loadData(true)">↻</button>
+    </div>
+  </header>
+  <div class="sbar" id="statusBar"></div>
+
+  <!-- ── OVERVIEW ── -->
+  <section class="view on" id="view-overview">
+    <div class="v-hd"><div class="v-kick">Company-wide</div><h1>Performance</h1></div>
+    <div class="kpi-grid" id="ov-kpis"></div>
+    <div class="panel chart-panel">
+      <div class="panel-t">Cash Collected by Week<span class="panel-sub" id="ovChartSub"></span></div>
+      <div class="cw"><canvas id="ovChart"></canvas></div>
+    </div>
+    <div class="two-col" id="ov-ranks"></div>
+    <div class="panel tbl" id="ov-outstanding"></div>
+  </section>
+
+  <!-- ── CLOSERS ── -->
+  <section class="view" id="view-closers">
+    <div class="v-hd"><div class="v-kick">EOC form · team + per rep</div><h1>Closers</h1></div>
+    <div class="kpi-grid" id="cl-kpis"></div>
+    <div class="panel tbl wide" id="cl-table"></div>
+    <div class="panel chart-panel" style="max-width:640px">
+      <div class="panel-t">Cash Collected per Closer</div>
+      <div class="cw"><canvas id="clChart"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ── SETTERS ── -->
+  <section class="view" id="view-setters">
+    <div class="v-hd"><div class="v-kick">EOD form + Sendblue</div><h1>Setters</h1></div>
+    <div class="kpi-grid" id="st-kpis"></div>
+    <div class="panel tbl" id="st-eod-table"></div>
+    <div class="panel tbl" id="st-sb-panel"></div>
+  </section>
+
+  <!-- ── SCORECARD ── -->
+  <section class="view" id="view-scorecard">
+    <div class="v-hd"><div class="v-kick">Growth scorecard · entered manually · Mon–Sun</div><h1>Weekly Scorecard</h1></div>
+    <div class="sc-banner">
+      <div style="display:flex;align-items:center;gap:16px">
+        <button class="btn-s" id="scPrev" onclick="scNav(-1)">‹</button>
+        <div><div class="sc-bk">Week of <span id="scWeekLabel">—</span> · weekly cash target</div>
+          <div class="sc-bv" id="sc-target">—</div>
+          <div class="sc-bs" id="scNote">scorecard data &amp; targets come from the Growth Scorecard sheet</div></div>
+        <button class="btn-s" id="scNext" onclick="scNav(1)">›</button>
+      </div>
+      <div class="sc-legend">
+        <span><i class="lg good"></i> At target</span>
+        <span><i class="lg warn"></i> Within 20%</span>
+        <span><i class="lg bad"></i> Below 80%</span>
+      </div>
+    </div>
+    <div class="panel tbl sc-wrap" id="sc-table"></div>
+  </section>
+</main>
+
+<script>
+// ═══ CREATORS CORNER DASHBOARD — LIVE ENGINE ═══
+var API_KEY_LS = 'acl_api_v1';
+var API_URL = localStorage.getItem(API_KEY_LS) || '';
+var DATA = { eoc: [], eod: [], sendblue: [], sendblueSeats: [], close: [], closeStats: [], targets: {} };
+var rng = 'month', customFrom = null, customTo = null, charts = {}, scIdx = -1;
+
+var $n = function (v) { return Math.round(v).toLocaleString(); };
+var $u = function (v) { return '$' + Math.round(v).toLocaleString(); };
+var $p = function (v) { return (v === null || isNaN(v)) ? '—' : v.toFixed(1) + '%'; };
+var pct = function (a, b) { return b > 0 ? a / b * 100 : null; };
+function fmtV(v, f) { return v == null || isNaN(v) ? '—' : f === 'usd' ? $u(v) : f === 'pct' ? $p(v) : $n(v); }
+function kpiState(v, kpi, dir) {
+  if (v == null || isNaN(v) || !kpi) return 'mut';
+  var r = dir === -1 ? kpi / v : v / kpi;
+  return r >= 1 ? 'good' : r >= 0.8 ? 'warn' : 'bad';
+}
+function showView(id, el) {
+  document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('on'); });
+  document.getElementById('view-' + id).classList.add('on');
+  document.querySelectorAll('.nav-item').forEach(function (n) { n.classList.remove('on'); });
+  el.classList.add('on');
+}
+function kpiTile(l, v, s, state) {
+  return '<div class="kpi' + (state ? ' ' + state : '') + '"><div class="kpi-l">' + l +
+    '</div><div class="kpi-v">' + v + '</div>' + (s ? '<div class="kpi-s">' + s + '</div>' : '') + '</div>';
+}
+
+// ── SETUP / FETCH ──────────────────────────────────────────────────
+function openSetup() { document.getElementById('setup').style.display = 'block'; document.getElementById('urlInput').focus(); }
+function saveUrl() {
+  var u = document.getElementById('urlInput').value.trim();
+  if (!u) { alert('Paste the /exec URL first'); return; }
+  API_URL = u; localStorage.setItem(API_KEY_LS, u);
+  document.getElementById('setup').style.display = 'none';
+  loadData(true);
+}
+function setStatus(txt, cls) {
+  document.getElementById('liveTxt').textContent = txt;
+  document.getElementById('liveBadge').className = 'live' + (cls ? ' ' + cls : '');
+}
+function loadData(force) {
+  if (!API_URL) { openSetup(); setStatus('no data source', 'err'); return; }
+  if (window.CC_DEMO) return; // demo mode: data already injected
+  setStatus('loading…');
+  var btn = document.getElementById('refreshBtn'); btn.disabled = true;
+  fetch(API_URL + (force ? '?fresh=1' : ''), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (j) {
+      DATA = j;
+      var errTxt = (j.errors && j.errors.length) ? ' · ⚠ ' + j.errors.join(' | ') : '';
+      setStatus((j.counts ? j.counts.eoc + ' calls · ' + j.counts.eod + ' EODs' : 'live') + (j.fromCache ? ' · cached' : ''), (j.errors && j.errors.length) ? 'warn' : '');
+      document.getElementById('statusBar').textContent = 'Updated ' + new Date(j.ts).toLocaleString() + errTxt;
+      renderAll();
+    })
+    .catch(function (e) { setStatus('error: ' + e.message, 'err'); openSetup(); })
+    .finally(function () { btn.disabled = false; });
+}
+
+// ── FILTERS ────────────────────────────────────────────────────────
+function d0(s) { return new Date(s + 'T00:00:00'); }
+function inPeriod(dateStr) {
+  var d = d0(dateStr), now = new Date();
+  if (customFrom || customTo) {
+    if (customFrom && d < customFrom) return false;
+    if (customTo && d > customTo) return false;
+    return true;
+  }
+  if (rng === 'month') return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  if (rng === 'week') { var mon = monday(now); return d >= mon; }
+  return true;
+}
+function monday(d) { var m = new Date(d); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); m.setHours(0, 0, 0, 0); return m; }
+function setRange(r, el) {
+  rng = r; customFrom = customTo = null;
+  document.getElementById('dFrom').value = ''; document.getElementById('dTo').value = '';
+  document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('on'); });
+  el.classList.add('on'); renderAll();
+}
+function applyCustom() {
+  var f = document.getElementById('dFrom').value, t = document.getElementById('dTo').value;
+  if (!f && !t) return;
+  customFrom = f ? new Date(f + 'T00:00:00') : null;
+  customTo = t ? new Date(t + 'T23:59:59') : null;
+  document.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('on'); });
+  renderAll();
+}
+function periodLabel() {
+  if (customFrom || customTo) return (customFrom ? customFrom.toLocaleDateString() : '…') + ' → ' + (customTo ? customTo.toLocaleDateString() : '…');
+  var now = new Date();
+  if (rng === 'month') return now.toLocaleString('default', { month: 'long', year: 'numeric' });
+  if (rng === 'week') return 'Week of ' + monday(now).toLocaleDateString();
+  return 'All Time';
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────
+function renderAll() {
+  document.getElementById('periodLabel').textContent = periodLabel();
+  var eoc = DATA.eoc.filter(function (r) { return inPeriod(r.date); });
+  var eod = DATA.eod.filter(function (r) { return inPeriod(r.date); });
+  var sb = DATA.sendblue.filter(function (r) { return inPeriod(r.date); });
+  var cl = (DATA.close || []).filter(function (r) { return inPeriod(r.date); });
+  var cs = (DATA.closeStats || []).filter(function (r) { return inPeriod(r.date); });
+  renderOverview(eoc, eod);
+  renderClosers(eoc);
+  renderSetters(eod, sb, cl, cs);
+  renderScorecard();
+}
+
+function agg(rows) {
+  return {
+    calls: rows.length,
+    shows: rows.filter(function (r) { return r.showed; }).length,
+    closes: rows.filter(function (r) { return r.closed; }).length,
+    dqs: rows.filter(function (r) { return r.dq; }).length,
+    pifs: rows.filter(function (r) { return r.pif; }).length,
+    cash: rows.reduce(function (s, r) { return s + r.cash; }, 0),
+    revenue: rows.reduce(function (s, r) { return s + r.revenue; }, 0)
+  };
+}
+
+function renderOverview(eoc, eod) {
+  var t = agg(eoc);
+  var outRows = eoc.filter(function (r) { return r.closed && r.revenue > r.cash; });
+  var outstanding = outRows.reduce(function (s, r) { return s + (r.revenue - r.cash); }, 0);
+  var bal = (DATA.balances || []).filter(function (b) { return b.balance > 0; });
+  var balTotal = bal.reduce(function (s, b) { return s + b.balance; }, 0);
+  if (DATA.balances && DATA.balances.length) { outstanding = balTotal; }
+  document.getElementById('ov-kpis').innerHTML =
+    kpiTile('Cash Collected <span class="src">eoc form</span>', $u(t.cash), 'Whop reconciliation: pending', 'hero') +
+    kpiTile('Total Calls', $n(t.calls), 'EOC submissions') +
+    kpiTile('Total Shows', $n(t.shows), 'sat calls') +
+    kpiTile('Show Rate', $p(pct(t.shows, t.calls)), 'shows ÷ calls') +
+    kpiTile('Closes', $n(t.closes), 'incl. follow-up & continuation') +
+    kpiTile('AOV', t.closes ? $u(t.cash / t.closes) : '—', 'cash ÷ closes') +
+    kpiTile('DQs', $n(t.dqs), 'DQ Rate: ' + $p(pct(t.dqs, t.shows))) +
+    kpiTile('Outstanding Balances', $u(outstanding),
+      (DATA.balances && DATA.balances.length) ? bal.length + ' open · from balances sheet' : outRows.length + ' deals with balance due');
+
+  // rankings
+  var byCloser = {};
+  eoc.forEach(function (r) { if (!byCloser[r.closer]) byCloser[r.closer] = 0; byCloser[r.closer] += r.cash; });
+  var bySetter = {};
+  eod.forEach(function (r) { if (!bySetter[r.setter]) bySetter[r.setter] = 0; bySetter[r.setter] += r.booked; });
+  document.getElementById('ov-ranks').innerHTML =
+    rankCard('Closer Ranking', 'by cash collected', Object.keys(byCloser).map(function (k) { return { name: k, v: byCloser[k] }; }).sort(function (a, b) { return b.v - a.v; }), $u) +
+    rankCard('Setter Ranking', 'by calls booked (EOD)', Object.keys(bySetter).map(function (k) { return { name: k, v: bySetter[k] }; }).sort(function (a, b) { return b.v - a.v; }), $n);
+
+  // outstanding table — maintained balances sheet takes priority
+  if (DATA.balances && DATA.balances.length) {
+    var today = new Date();
+    function overdue(ds) {
+      if (!ds) return false;
+      var p = ds.split('/');
+      if (p.length < 3) return false;
+      return new Date(+p[2], +p[0] - 1, +p[1]) < today;
+    }
+    document.getElementById('ov-outstanding').innerHTML =
+      '<div class="tbl-t">Outstanding Balances<span class="panel-sub">balances tracker · all open · not period-filtered</span></div>' +
+      '<table><thead><tr><th>Client</th><th>Original Date</th><th>Source</th><th>Deal Value</th><th>Collected</th><th>Outstanding</th><th>Commission</th><th>Balance Due</th></tr></thead><tbody>' +
+      bal.sort(function (a, b) { return b.balance - a.balance; }).map(function (b) {
+        var od = overdue(b.dueDate);
+        return '<tr><td class="nm">' + b.client + '</td><td>' + b.date + '</td><td>' + b.source + '</td>' +
+          '<td>' + $u(b.dealValue) + '</td><td>' + $u(b.collected) + '</td>' +
+          '<td class="acc">' + $u(b.balance) + '</td><td>' + (b.commission ? $u(b.commission) : '—') + '</td>' +
+          '<td' + (od ? ' style="color:#c22f2f;font-weight:700"' : '') + '>' + (b.dueDate || '—') + (od ? ' ⚠' : '') + '</td></tr>';
+      }).join('') +
+      '</tbody><tfoot><tr><td colspan="5" style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)">Total outstanding</td>' +
+      '<td class="acc">' + $u(balTotal) + '</td><td colspan="2"></td></tr></tfoot></table>';
+    return chartAndRanks();
+  }
+  document.getElementById('ov-outstanding').innerHTML = outRows.length ?
+    '<div class="tbl-t">Outstanding Balances<span class="panel-sub">closed deals · balance = revenue − cash collected</span></div>' +
+    '<table><thead><tr><th>Lead</th><th>Closer</th><th>Date</th><th>Deal Value</th><th>Collected</th><th>Outstanding</th></tr></thead><tbody>' +
+    outRows.sort(function (a, b) { return (b.revenue - b.cash) - (a.revenue - a.cash); }).map(function (r) {
+      return '<tr><td class="nm">' + (r.lead || '—') + '</td><td>' + r.closer + '</td><td>' + r.date + '</td><td>' + $u(r.revenue) + '</td><td>' + $u(r.cash) + '</td><td class="acc">' + $u(r.revenue - r.cash) + '</td></tr>';
+    }).join('') + '</tbody></table>'
+    : '<div class="tbl-t">Outstanding Balances</div><div style="padding:8px 0;color:var(--mut);font-size:12px">No open balances in this period 🎉</div>';
+
+  chartAndRanks();
+  function chartAndRanks() {
+  // weekly cash chart (always last 8 ISO weeks, unfiltered)
+  var wk = {};
+  DATA.eoc.forEach(function (r) {
+    var m = monday(d0(r.date));
+    var k = m.toISOString().slice(0, 10);
+    if (!wk[k]) wk[k] = 0; wk[k] += r.cash;
+  });
+  var keys = Object.keys(wk).sort().slice(-8);
+  var wkTarget = (DATA.targets['Cash Collected'] || {}).weekly || 0;
+  document.getElementById('ovChartSub').textContent = wkTarget ? 'vs ' + $u(wkTarget) + ' weekly target' : '';
+  if (charts.ov) charts.ov.destroy();
+  if (typeof Chart !== 'undefined') charts.ov = new Chart(document.getElementById('ovChart'), {
+    type: 'bar',
+    data: {
+      labels: keys.map(function (k) { var d = d0(k); return (d.getMonth() + 1) + '/' + d.getDate(); }),
+      datasets: [
+        { label: 'Cash collected', data: keys.map(function (k) { return wk[k]; }), backgroundColor: '#16150f', borderRadius: 4, maxBarThickness: 36 }
+      ].concat(wkTarget ? [{ label: 'Weekly target', type: 'line', data: keys.map(function () { return wkTarget; }), borderColor: '#8f8d84', borderWidth: 1.5, pointRadius: 0 }] : [])
+    },
+    options: chartOpts('$')
+  });
+  }
+}
+
+function rankCard(title, sub, rows, fmt) {
+  var mx = rows.length ? rows[0].v : 1;
+  return '<div class="panel rank"><div class="panel-t">' + title + '<span class="panel-sub">' + sub + '</span></div>' +
+    (rows.length ? rows.map(function (r, i) {
+      return '<div class="rank-row"><span class="rk r' + (i + 1) + '">' + (i + 1) + '</span>' +
+        '<span class="rk-name">' + r.name + '</span>' +
+        '<span class="rk-bar"><span class="rk-fill" style="width:' + (mx ? Math.round(r.v / mx * 100) : 0) + '%"></span></span>' +
+        '<span class="rk-val">' + fmt(r.v) + '</span></div>';
+    }).join('') : '<div style="padding:8px 0;color:var(--mut);font-size:12px">No data in this period</div>') + '</div>';
+}
+
+function renderClosers(eoc) {
+  var t = agg(eoc);
+  document.getElementById('cl-kpis').innerHTML =
+    kpiTile('Team Cash <span class="src">eoc form</span>', $u(t.cash), 'Revenue booked: ' + $u(t.revenue), 'hero') +
+    kpiTile('Calls Booked', $n(t.calls)) +
+    kpiTile('Calls Showed', $n(t.shows)) +
+    kpiTile('Show Rate', $p(pct(t.shows, t.calls))) +
+    kpiTile('Close Rate', $p(pct(t.closes, t.shows)), 'closes ÷ shows') +
+    kpiTile('AOV', t.closes ? $u(t.cash / t.closes) : '—') +
+    kpiTile('DQs', $n(t.dqs), 'DQ Rate: ' + $p(pct(t.dqs, t.shows))) +
+    kpiTile('PIF Rate', $p(pct(t.pifs, t.closes)), '$3.5k/$4k paid-in-full · inferred');
+
+  var per = {};
+  eoc.forEach(function (r) {
+    if (!per[r.closer]) per[r.closer] = [];
+    per[r.closer].push(r);
+  });
+  var rows = Object.keys(per).map(function (k) { var a = agg(per[k]); a.name = k; return a; })
+    .sort(function (a, b) { return b.cash - a.cash; });
+
+  document.getElementById('cl-table').innerHTML =
+    '<div class="tbl-t">Individual Closer Metrics<span class="panel-sub">EOC form · per rep</span></div>' +
+    '<table><thead><tr><th>#</th><th>Closer</th><th>Calls</th><th>Showed</th><th>Show %</th><th>Closes</th><th>Close %</th><th>Cash</th><th>AOV</th><th>DQs</th><th>PIF %</th></tr></thead><tbody>' +
+    rows.map(function (c, i) {
+      return '<tr><td><span class="rk r' + (i + 1) + '">' + (i + 1) + '</span></td><td class="nm">' + c.name + '</td>' +
+        '<td>' + $n(c.calls) + '</td><td>' + $n(c.shows) + '</td><td>' + $p(pct(c.shows, c.calls)) + '</td>' +
+        '<td>' + $n(c.closes) + '</td><td>' + $p(pct(c.closes, c.shows)) + '</td>' +
+        '<td class="acc">' + $u(c.cash) + '</td><td>' + (c.closes ? $u(c.cash / c.closes) : '—') + '</td>' +
+        '<td>' + $n(c.dqs) + '</td><td>' + $p(pct(c.pifs, c.closes)) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+
+  if (charts.cl) charts.cl.destroy();
+  if (typeof Chart !== 'undefined') charts.cl = new Chart(document.getElementById('clChart'), {
+    type: 'bar',
+    data: { labels: rows.map(function (r) { return r.name; }), datasets: [{ data: rows.map(function (r) { return r.cash; }), backgroundColor: '#16150f', borderRadius: 4, maxBarThickness: 30 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: false,
+      plugins: { legend: { display: false }, tooltip: tooltipOpts() },
+      scales: {
+        x: { grid: { color: '#e9e7de' }, border: { display: false }, ticks: { font: { size: 10 }, color: '#8f8d84', callback: function (v) { return v >= 1000 ? '$' + (v / 1000) + 'k' : '$' + v; } } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#54524b' }, border: { color: '#e9e7de' } }
+      }
+    }
+  });
+}
+
+function renderSetters(eod, sb, closeRows, closeStats) {
+  closeRows = closeRows || []; closeStats = closeStats || [];
+  // Close-derived: true speed to lead (weighted by leads measured) + talk time
+  var stlSum = 0, stlN = 0;
+  closeStats.forEach(function (r) { if (r.avgStlMin != null && r.leads) { stlSum += r.avgStlMin * r.leads; stlN += r.leads; } });
+  var trueStl = stlN ? stlSum / stlN : null;
+  var talkTotal = closeRows.reduce(function (s2, r) { return s2 + r.talkMin; }, 0);
+  var perRepPhone = {};
+  closeRows.forEach(function (r) {
+    if (!perRepPhone[r.rep]) perRepPhone[r.rep] = { calls: 0, talkMin: 0 };
+    perRepPhone[r.rep].calls += r.calls; perRepPhone[r.rep].talkMin += r.talkMin;
+  });
+  function fmtMin(m) {
+    if (m == null || isNaN(m)) return '—';
+    var mr = Math.round(m);
+    if (mr < 60) return mr + 'm';
+    return Math.floor(mr / 60) + 'h ' + (mr % 60) + 'm';
+  }
+  var sum = function (k) { return eod.reduce(function (s, r) { return s + (r[k] || 0); }, 0); };
+  var sbAgg = {
+    convos: sb.reduce(function (s, r) { return s + r.contactsMessaged; }, 0),
+    replied: sb.reduce(function (s, r) { return s + r.contactsReplied; }, 0),
+    inbound: sb.reduce(function (s, r) { return s + r.inbound; }, 0),
+    outM: sb.reduce(function (s, r) { return s + r.outManual; }, 0),
+    outA: sb.reduce(function (s, r) { return s + r.outAuto; }, 0)
+  };
+  var resp = sb.filter(function (r) { return r.avgRespMin != null; });
+  var avgResp = resp.length ? resp.reduce(function (s, r) { return s + r.avgRespMin; }, 0) / resp.length : null;
+
+  document.getElementById('st-kpis').innerHTML =
+    kpiTile('Speed to Lead <span class="src">close crm</span>', trueStl != null ? trueStl.toFixed(1) + '<span class="unit">min</span>' : '—', trueStl != null ? 'lead created → first outreach · ' + stlN + ' leads' : 'no leads measured yet', 'hero') +
+    kpiTile('Conversations', sbAgg.convos ? $n(sbAgg.convos) : '—', 'contacts messaged · sendblue') +
+    kpiTile('Connection Rate', $p(pct(sbAgg.replied, sbAgg.convos)), 'replied ÷ messaged') +
+    kpiTile('Avg Response Time', avgResp != null ? avgResp.toFixed(1) + '<span class="unit">min</span>' : '—', 'inbound → reply · sendblue') +
+    kpiTile('Dials', $n(sum('dials')), 'EOD form') +
+    kpiTile('Pick Ups', $n(sum('pickups')), 'EOD form') +
+    kpiTile('Calls Booked', $n(sum('booked')), 'EOD form') +
+    kpiTile('DM Sets', $n(sum('dmSets')), 'EOD form');
+
+  var per = {};
+  eod.forEach(function (r) {
+    if (!per[r.setter]) per[r.setter] = { dials: 0, pickups: 0, booked: 0, triages: 0, dmSets: 0, fuSent: 0, fuBooked: 0, hasFu: false };
+    var p = per[r.setter];
+    p.dials += r.dials; p.pickups += r.pickups; p.booked += r.booked;
+    p.triages += r.triages; p.dmSets += r.dmSets;
+    if (r.fuSent != null) { p.fuSent += r.fuSent; p.hasFu = true; }
+    if (r.fuBooked != null) p.fuBooked += r.fuBooked;
+  });
+  document.getElementById('st-eod-table').innerHTML =
+    '<div class="tbl-t">Setter Metrics<span class="panel-sub">EOD form · per setter</span></div>' +
+    '<table><thead><tr><th>Setter</th><th>Triages</th><th>Dials</th><th>Pick Ups</th><th>Pick-up %</th><th>Calls Booked</th><th>DM Sets</th><th>FU Sent</th><th>FU Booked</th></tr></thead><tbody>' +
+    Object.keys(per).sort(function (a, b) { return per[b].booked - per[a].booked; }).map(function (k) {
+      var p = per[k];
+      return '<tr><td class="nm">' + k + '</td><td>' + $n(p.triages) + '</td><td>' + $n(p.dials) + '</td>' +
+        '<td>' + $n(p.pickups) + '</td><td>' + $p(pct(p.pickups, p.dials)) + '</td>' +
+        '<td class="acc">' + $n(p.booked) + '</td><td>' + $n(p.dmSets) + '</td>' +
+        '<td>' + (p.hasFu ? $n(p.fuSent) : '—') + '</td><td>' + (p.fuBooked ? $n(p.fuBooked) : '—') + '</td></tr>';
+    }).join('') + '</tbody></table>' +
+    '<div style="font-size:10px;color:var(--mut);margin-top:8px">FU Booked awaiting new form question · Sendblue is one shared line so message metrics are team-level below</div>';
+
+  document.getElementById('st-sb-panel').innerHTML =
+    '<div class="tbl-t">Sendblue — Team Messaging<span class="panel-sub">2 lines · team totals + per-seat split below</span></div>' +
+    '<table><thead><tr><th>Contacts Messaged</th><th>Replies (contacts)</th><th>Connection Rate</th><th>Inbound Msgs</th><th>Outbound (manual)</th><th>Outbound (automated)</th><th>Avg Response</th><th>Time on Phone</th></tr></thead><tbody>' +
+    '<tr><td>' + (sbAgg.convos ? $n(sbAgg.convos) : '—') + '</td><td>' + (sbAgg.replied ? $n(sbAgg.replied) : '—') + '</td>' +
+    '<td class="acc">' + $p(pct(sbAgg.replied, sbAgg.convos)) + '</td><td>' + $n(sbAgg.inbound) + '</td>' +
+    '<td>' + $n(sbAgg.outM) + '</td><td>' + $n(sbAgg.outA) + '</td>' +
+    '<td>' + (avgResp != null ? avgResp.toFixed(1) + ' min' : '—') + '</td><td class="acc">' + fmtMin(talkTotal) + '</td></tr>' +
+    '</tbody></table>' +
+    (function () {
+      var seats = (DATA.sendblueSeats || []).filter(function (r) { return inPeriod(r.date); });
+      if (!seats.length) return '';
+      var per = {};
+      seats.forEach(function (r) {
+        var k = r.setter || ('Seat ' + r.seat.slice(0, 8) + '…');
+        if (!per[k]) per[k] = { out: 0, contacts: 0 };
+        per[k].out += r.out; per[k].contacts += r.contacts;
+      });
+      return '<div class="tbl-t" style="margin-top:18px">Sendblue — per Setter<span class="panel-sub">by seat · manual messages only</span></div>' +
+        '<table><thead><tr><th>Setter</th><th>Outbound Msgs</th><th>Contacts Messaged</th></tr></thead><tbody>' +
+        Object.keys(per).sort(function (a, b) { return per[b].out - per[a].out; }).map(function (k) {
+          return '<tr><td class="nm">' + k + '</td><td class="acc">' + $n(per[k].out) + '</td><td>' + $n(per[k].contacts) + '</td></tr>';
+        }).join('') + '</tbody></table>' +
+        '<div style="font-size:10px;color:var(--mut);margin-top:6px">Unnamed seats: fill SEAT_MAP in the backend to label them</div>';
+    })() +
+    (Object.keys(perRepPhone).length ?
+      '<div class="tbl-t" style="margin-top:18px">Time on Phone — per rep<span class="panel-sub">Close CRM call log</span></div>' +
+      '<table><thead><tr><th>Rep</th><th>Calls</th><th>Talk Time</th><th>Avg per Call</th></tr></thead><tbody>' +
+      Object.keys(perRepPhone).sort(function (a, b) { return perRepPhone[b].talkMin - perRepPhone[a].talkMin; }).map(function (k) {
+        var p = perRepPhone[k];
+        return '<tr><td class="nm">' + k + '</td><td>' + $n(p.calls) + '</td><td class="acc">' + fmtMin(p.talkMin) + '</td><td>' + (p.calls ? (p.talkMin / p.calls).toFixed(1) + ' min' : '—') + '</td></tr>';
+      }).join('') + '</tbody></table>' : '');
+}
+
+// ── SCORECARD (mirrors the manual Growth Scorecard sheet) ──────────
+var LOWER_BETTER = ['cost', 'cpc', 'spend', 'dq'];
+function scParse(v) {
+  if (v == null) return null;
+  var s2 = String(v).trim().replace(/[$,\s]/g, '').replace(/%$/, '');
+  if (!s2 || s2 === '-' || /n\/a/i.test(s2)) return null;
+  var f = parseFloat(s2);
+  return isNaN(f) ? null : f;
+}
+function scWeeks() {
+  // archive weeks + live sheet week (live wins for its own week)
+  var weeks = (DATA.scorecardWeeks || []).slice();
+  var g = DATA.growthScorecard;
+  if (g && g.rows && g.rows.length) {
+    var liveKey = (g.dates && g.dates[0]) || 'live';
+    var replaced = false;
+    for (var i = 0; i < weeks.length; i++) {
+      if (weeks[i].dates && weeks[i].dates[0] === liveKey) { weeks[i] = { weekStart: weeks[i].weekStart, dates: g.dates, rows: g.rows, live: true }; replaced = true; }
+    }
+    if (!replaced) weeks.push({ weekStart: 'live', dates: g.dates, rows: g.rows, live: true });
+  }
+  return weeks;
+}
+function scNav(d) {
+  var weeks = scWeeks();
+  if (scIdx === -1) scIdx = weeks.length - 1;
+  scIdx = Math.max(0, Math.min(weeks.length - 1, scIdx + d));
+  renderScorecard();
+}
+function renderScorecard() {
+  var weeks = scWeeks();
+  var el = document.getElementById('sc-table');
+  var cashT = (DATA.targets || {})['Cash Collected'] || {};
+  document.getElementById('sc-target').textContent = cashT.weekly ? $u(cashT.weekly) : '—';
+  var prevB = document.getElementById('scPrev'), nextB = document.getElementById('scNext');
+  if (!weeks.length) {
+    document.getElementById('scWeekLabel').textContent = '—';
+    if (prevB) { prevB.disabled = true; nextB.disabled = true; }
+    el.innerHTML = '<div style="padding:14px 0;color:var(--mut);font-size:12px">Growth Scorecard sheet is empty or unreachable — check the published link.</div>';
+    return;
+  }
+  var idx = scIdx === -1 ? weeks.length - 1 : Math.min(scIdx, weeks.length - 1);
+  var g = weeks[idx];
+  if (prevB) {
+    prevB.disabled = idx === 0;
+    nextB.disabled = idx === weeks.length - 1;
+  }
+  var note = document.getElementById('scNote');
+  if (note) note.textContent = (idx === weeks.length - 1 ? 'current week · live from the Growth Scorecard sheet' : 'archived snapshot · week ' + (idx + 1) + ' of ' + weeks.length);
+  document.getElementById('scWeekLabel').textContent =
+    (g.dates[0] || '—') + ' → ' + (g.dates[6] || '—');
+  var DL = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  var html = '<table class="sc"><thead><tr><th class="ml">Metric</th>' +
+    DL.map(function (d, i) {
+      return '<th>' + d + '<div style="font-weight:400;opacity:.6">' + (g.dates[i] || '') + '</div></th>';
+    }).join('') +
+    '<th class="sep">Avg Daily</th><th>Daily Target</th><th>Source</th></tr></thead><tbody>';
+  var lastSection = null;
+  g.rows.forEach(function (r) {
+    if (r.section !== lastSection) {
+      lastSection = r.section;
+      html += '<tr><td colspan="11" style="text-align:left;font-weight:800;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut);background:#faf9f5;padding:10px 12px 6px">' + (r.section || '') + '</td></tr>';
+    }
+    var tNum = scParse(r.target);
+    var dir = LOWER_BETTER.some(function (k) { return r.metric.toLowerCase().indexOf(k) >= 0; }) ? -1 : 1;
+    var cells = r.days.map(function (v) {
+      var vNum = scParse(v);
+      var cls = (vNum != null && tNum != null && tNum !== 0) ? kpiState(vNum, tNum, dir) : '';
+      return '<td class="' + cls + '">' + (v === '' ? '—' : v) + '</td>';
+    }).join('');
+    var avgNum = scParse(r.avg);
+    var avgCls = (avgNum != null && tNum != null && tNum !== 0) ? kpiState(avgNum, tNum, dir) : '';
+    html += '<tr><td class="ml">' + r.metric + '</td>' + cells +
+      '<td class="sep ' + avgCls + '">' + (r.avg || '—') + '</td>' +
+      '<td class="tgt">' + (r.target || '—') + '</td>' +
+      '<td style="text-align:left;color:var(--mut);font-size:10px">' + (r.source || '—') + '</td></tr>';
+  });
+  el.innerHTML = html + '</tbody></table>';
+}
+
+// ── CHART CHROME ───────────────────────────────────────────────────
+function tooltipOpts() {
+  return { backgroundColor: '#ffffff', titleColor: '#0c0b08', bodyColor: '#54524b', borderColor: '#e6e4db', borderWidth: 1, padding: 8 };
+}
+function chartOpts(unit) {
+  return {
+    responsive: true, maintainAspectRatio: false, animation: false,
+    plugins: {
+      legend: { position: 'top', align: 'end', labels: { boxWidth: 8, boxHeight: 8, font: { size: 10 }, color: '#54524b' } },
+      tooltip: tooltipOpts()
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#8f8d84' }, border: { color: '#e9e7de' } },
+      y: { grid: { color: '#e9e7de' }, border: { display: false }, ticks: { font: { size: 10 }, color: '#8f8d84', callback: function (v) { return unit === '$' && v >= 1000 ? '$' + (v / 1000) + 'k' : (unit === '$' ? '$' + v : v); } } }
+    }
+  };
+}
+
+// ── BOOT ───────────────────────────────────────────────────────────
+window.onload = function () {
+  if (typeof Chart === 'undefined') {
+    document.querySelectorAll('.cw').forEach(function (c) { c.innerHTML = '<div style="padding:40px;text-align:center;opacity:.4;font-size:11px">charts need an internet connection</div>'; });
+  }
+  if (API_URL) { document.getElementById('urlInput').value = API_URL; loadData(); }
+  else if (window.CC_DEMO) { setStatus('demo data', 'warn'); renderAll(); }
+  else openSetup();
+};
+setInterval(function () { if (API_URL && !window.CC_DEMO) loadData(); }, 5 * 60 * 1000);
+
+</script>
+</body>
+</html>
