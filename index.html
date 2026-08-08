@@ -151,6 +151,88 @@ table.sc .wt{color:var(--ink);font-weight:800}
 code{background:#f1efe7;padding:1px 5px;border-radius:4px;font-size:11px}
 #setup{margin-bottom:18px}
 
+/* ── projection tab ── */
+.proj-grid{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:start}
+@media(max-width:1000px){.proj-grid{grid-template-columns:1fr}}
+.proj-presets{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.pp{flex:1;padding:8px 6px;border-radius:9px;border:1px solid var(--bd);background:var(--sur);color:var(--ink2);font-size:9px;font-weight:800;letter-spacing:.8px;cursor:pointer;font-family:'Inter',sans-serif}
+.pp.on{background:var(--y);color:var(--blk);border-color:var(--y)}
+.proj-drv{margin-bottom:16px}
+.proj-drv-hd{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.proj-drv-hd input{width:86px;padding:5px 8px;border-radius:7px;border:1px solid var(--bd);background:var(--sur);color:var(--ink);font-size:12px;font-weight:700;text-align:right}
+.proj-drv input[type=range]{width:100%;accent-color:var(--y);height:20px}
+.proj-drv-ft{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;color:var(--mut);margin-top:2px}
+.proj-reset{background:none;border:1px solid var(--bd);border-radius:6px;color:var(--mut);font-size:9px;padding:2px 8px;cursor:pointer}
+.proj-reset:hover{border-color:var(--blk);color:var(--ink)}
+.proj-hero{background:var(--blk);border-radius:16px;padding:22px 26px;margin-bottom:14px}
+.proj-hero-k{font-size:9.5px;letter-spacing:1.8px;color:#b8b49e;margin-bottom:8px}
+.proj-hero-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.proj-hero-v{font-family:'Archivo Black',sans-serif;font-size:44px;color:var(--y);letter-spacing:-1px;line-height:1}
+.proj-hero-s{font-size:11px;color:#8f8d84;margin-top:10px}
+.proj-hero-s b{color:#d9d7c9;font-weight:700}
+.proj-badge{padding:4px 10px;border-radius:99px;font-size:11px;font-weight:800}
+.proj-badge.up{background:#e7f5e7;color:#0a8a0a}
+.proj-badge.down{background:#fbe9e9;color:#c22f2f}
+.proj-badge.sm{font-size:9.5px;padding:2px 8px}
+.proj-hero .proj-badge.up{background:rgba(47,191,87,.15);color:#5fd97f}
+.proj-hero .proj-badge.down{background:rgba(242,106,94,.15);color:#f4948b}
+.proj-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:1100px){.proj-cards{grid-template-columns:repeat(2,1fr)}}
+.proj-card{background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:14px 16px}
+.pc-k{font-size:9px;letter-spacing:1px;color:var(--mut);margin-bottom:6px}
+.pc-v{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.pc-s{font-size:9.5px;color:var(--mut);margin-top:5px}
+.proj-note{font-size:10px;color:var(--mut);margin-top:12px;line-height:1.6}
+
+.proj-sec{font-size:9px;letter-spacing:1.6px;font-weight:800;color:var(--mut);margin:18px 0 10px;padding-top:14px;border-top:1px dashed var(--bd)}
+.proj-calc{background:var(--blk);color:#d9d7c9;border-radius:10px;padding:10px 12px;font-size:9.5px;letter-spacing:.6px;font-weight:700;margin:0 0 14px;line-height:1.7}
+.proj-calc b{color:var(--y);font-size:16px;font-family:'Archivo Black',sans-serif;font-weight:400;letter-spacing:0;margin:0 2px}
+.proj-calc span{font-weight:500;letter-spacing:.2px;color:#8f8d84}
+.proj-alarm{border-radius:12px;padding:11px 16px;margin-bottom:14px;font-size:11.5px;font-weight:600;line-height:1.5}
+.proj-alarm.bad{background:#fbe9e9;border:1px solid #e6b3b3;color:#a02525}
+.proj-alarm.ok{background:#eef7ee;border:1px solid #bfdec0;color:#20701f}
+.proj-alarm b{font-weight:800}
+.pc-v.bad{color:#c22f2f}
+.pc-of{font-size:13px;color:var(--mut);font-weight:700}
+.proj-split{margin-bottom:14px;background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:14px 16px}
+.ps-hd{font-size:9px;letter-spacing:1px;color:var(--mut);display:flex;justify-content:space-between;margin-bottom:8px;font-weight:700}
+.ps-bar{height:14px;border-radius:99px;background:var(--bd);overflow:hidden}
+.ps-bar i{display:block;height:100%;background:var(--y);border-radius:99px 0 0 99px}
+.ps-legend{display:flex;justify-content:space-between;font-size:10px;color:var(--mut);margin-top:7px}
+.ps-legend b{color:var(--ink);font-weight:800}
+
+/* ── ask claude ── */
+.ask-card{background:var(--blk);border-radius:16px;padding:26px 26px 22px;margin-top:14px;text-align:center}
+.ask-orb{width:72px;height:72px;border-radius:50%;margin:2px auto 12px;background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.85) 0%,var(--y) 42%,rgba(0,0,0,.55) 100%);box-shadow:0 0 60px -8px var(--y)}
+.ask-t{font-family:'Archivo Black',sans-serif;color:#fff;font-size:22px}
+.ask-t span{color:var(--y)}
+.ask-s{font-size:9.5px;letter-spacing:2px;color:#8f8d84;margin:6px 0 16px;font-family:'Space Mono',monospace}
+.ask-row{display:flex;gap:8px;max-width:560px;margin:0 auto}
+.ask-row input{flex:1;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#eee;font-size:13px;font-family:'Inter',sans-serif}
+.ask-row input::placeholder{color:#8f8d84}
+.ask-go{background:var(--y);border:none;border-radius:10px;width:46px;font-size:15px;cursor:pointer;color:var(--blk);font-weight:800}
+.ask-go:disabled{opacity:.5;cursor:not-allowed}
+.ask-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:13px}
+.ask-chips span{border:1px solid rgba(255,255,255,.18);color:#cfcdc2;font-size:10.5px;padding:5px 13px;border-radius:99px;cursor:pointer}
+.ask-chips span:hover{border-color:var(--y);color:var(--y)}
+.ask-chips .ask-pdf{background:var(--y);border-color:var(--y);color:var(--blk);font-weight:800}
+.ask-chips .ask-pdf:hover{opacity:.85;color:var(--blk)}
+.ask-out{text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 18px;margin:16px auto 0;max-width:760px;font-size:12.5px;line-height:1.65;color:#e6e4da}
+.ask-out p{margin:6px 0}
+.ask-out b{color:#fff}
+.ask-out h4{color:var(--y);font-size:11.5px;letter-spacing:.6px;margin:12px 0 4px;text-transform:uppercase}
+.ask-out h4:first-child{margin-top:0}
+.ask-out ul{margin:6px 0 6px 18px;padding:0}
+.ask-out li{margin:3px 0}
+.ask-out table{border-collapse:collapse;margin:8px 0;font-size:11.5px}
+.ask-out td,.ask-out th{border:1px solid rgba(255,255,255,.15);padding:4px 10px;text-align:left}
+.ask-out th{color:var(--y);font-weight:700}
+.ask-out code{background:rgba(255,255,255,.1);padding:1px 5px;border-radius:4px;font-size:11px}
+.ask-load{color:#8f8d84;font-size:12px;animation:askpulse 1.2s ease-in-out infinite}
+@keyframes askpulse{50%{opacity:.35}}
+.ask-err{color:#f4948b;font-size:12px}
+
+
 
 
 
@@ -170,6 +252,8 @@ code{background:#f1efe7;padding:1px 5px;border-radius:4px;font-size:11px}
     <div class="nav-item" onclick="showView('closers',this)"><span class="ni-ic">◎</span> Closers</div>
     <div class="nav-item" onclick="showView('setters',this)"><span class="ni-ic">✆</span> Setters</div>
     <div class="nav-item" onclick="showView('scorecard',this)"><span class="ni-ic">▤</span> Weekly Scorecard</div>
+    <div class="nav-item" onclick="showView('projection',this)"><span class="ni-ic">◈</span> Projection</div>
+    <div class="nav-item" onclick="showView('ask',this)"><span class="ni-ic">✦</span> Ask Claude</div>
   </nav>
   <div class="side-foot" id="sideFoot">AI CREATOR LAB<br>SALES DASHBOARD</div>
 </aside>
@@ -260,6 +344,46 @@ code{background:#f1efe7;padding:1px 5px;border-radius:4px;font-size:11px}
       </div>
     </div>
     <div class="panel tbl sc-wrap" id="sc-table"></div>
+  </section>
+  <!-- ── PROJECTION ── -->
+  <section class="view" id="view-projection">
+    <div class="v-hd"><div class="v-kick">Growth model · affiliate + outbound engines · auto-baselined on last month</div><h1 id="projTitle">PROJECTION</h1></div>
+    <div class="sbar" id="projBase" style="margin:-6px 0 14px"></div>
+    <div class="proj-grid">
+      <div class="panel"><div class="panel-t">Drivers</div><div id="projDrivers"></div></div>
+      <div>
+        <div class="proj-hero" id="projHero"></div>
+        <div id="projAlarm"></div>
+        <div class="proj-cards" id="projCards"></div>
+        <div class="proj-split" id="projSplit" style="display:none"></div>
+        <div class="panel tbl" id="projTable"></div>
+      </div>
+    </div>
+  </section>
+  <!-- ── ASK CLAUDE ── -->
+  <section class="view" id="view-ask">
+    <div class="v-hd"><div class="v-kick">AI co-pilot · answers from your live data · one-click PDF reports</div><h1>ASK CLAUDE</h1></div>
+    <!-- ── ASK CLAUDE ── -->
+    <div class="ask-card">
+      <div class="ask-orb"></div>
+      <div class="ask-t">Ask <span>Claude</span></div>
+      <div class="ask-s">AI ANSWERS ON YOUR LIVE DATA</div>
+      <div class="ask-row">
+        <input id="askInput" placeholder="Ask anything…" onkeydown="if(event.key==='Enter')askClaude()">
+        <button class="ask-go" id="askGo" onclick="askClaude()">➤</button>
+      </div>
+      <div class="ask-chips">
+        <span onclick="askChip('How does this month compare to last month?')">This month vs last</span>
+        <span onclick="askChip('Who are the top performing closers and setters right now, with their numbers?')">Top team</span>
+        <span onclick="askChip('Who on the team needs coaching, and on which specific metric?')">Who to coach</span>
+        <span onclick="askChip('Is my current projection scenario realistic compared to last month\'s actuals?')">Reality check</span>
+        <span onclick="askChip('Which lever moves projected revenue most from here \u2014 more affiliates, more dials, or a better close rate?')">Which lever</span>
+        <span onclick="askChip('How many closers and setters do we need to handle 13 calls booked per day?')">Team needed</span>
+        <span onclick="askChip('If we keep this pace, how much cash and Whop revenue will we do by end of month?')">Month-end pace</span>
+        <span class="ask-pdf" onclick="genReport()">📄 PDF report</span>
+      </div>
+      <div class="ask-out" id="askOut" style="display:none"></div>
+    </div>
   </section>
 </main>
 
@@ -370,6 +494,7 @@ function renderAll() {
   renderClosers(eoc);
   renderSetters(eod, sb, cl, cs);
   renderScorecard();
+  renderProjection();
 }
 
 function agg(rows) {
@@ -392,12 +517,12 @@ function renderOverview(eoc, eod) {
   var balTotal = bal.reduce(function (s, b) { return s + b.balance; }, 0);
   if (DATA.balances && DATA.balances.length) { outstanding = balTotal; }
   var whopRows = (DATA.whop || []).filter(function (w) { return inPeriod(w.date); });
-  var whopNet = whopRows.reduce(function (s, w) { return s + w.net; }, 0);
+  var whopNet = whopRows.reduce(function (s, w) { return s + w.gross; }, 0); // gross revenue, matching Whop's Stats page
   var whopPayments = whopRows.reduce(function (s, w) { return s + w.payments; }, 0);
   var heroTile, whopTiles = '';
   if (whopRows.length) {
     heroTile = kpiTile('Revenue <span class="src">whop</span>', $u(whopNet),
-      whopPayments + ' payments · net of refunds', 'hero');
+      whopPayments + ' payments · gross revenue · Whop Stats may read ~0.3% higher (intl card FX)', 'hero');
     var wd = whopNet - t.cash;
     var wdCol = wd >= 0 ? '#0a8a0a' : '#c22f2f';
     whopTiles =
@@ -732,6 +857,532 @@ function chartOpts(unit) {
     }
   };
 }
+
+// ═══ PROJECTION TAB — growth model: affiliate + outbound engines ═══
+var PROJ = null; // slider state
+
+function projMonthRange(offset) {
+  var now = new Date();
+  var first = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+  var last = new Date(now.getFullYear(), now.getMonth() + offset + 1, 0);
+  var iso = function (d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); };
+  return { from: iso(first), to: iso(last), days: last.getDate(),
+    label: first.toLocaleString('default', { month: 'long', year: 'numeric' }),
+    monthShort: first.toLocaleString('default', { month: 'short' }) };
+}
+
+function projBaselines() {
+  var prev = projMonthRange(-1);
+  var inRange = function (d) { return d >= prev.from && d <= prev.to; };
+  var eoc = (DATA.eoc || []).filter(function (r) { return inRange(r.date); });
+  var usedFallback = false;
+  if (eoc.length < 15) { // thin month → fall back to last 30 days of data
+    usedFallback = true;
+    var now = new Date(); var cut = new Date(now); cut.setDate(cut.getDate() - 30);
+    var cutIso = cut.getFullYear() + '-' + ('0' + (cut.getMonth() + 1)).slice(-2) + '-' + ('0' + cut.getDate()).slice(-2);
+    eoc = (DATA.eoc || []).filter(function (r) { return r.date >= cutIso; });
+    inRange = function (d) { return d >= cutIso; };
+  }
+  var days = {}; eoc.forEach(function (r) { days[r.date] = 1; });
+  var activeDays = Math.max(Object.keys(days).length, 1);
+  var calls = eoc.length;
+  var shows = eoc.filter(function (r) { return r.showed; }).length;
+  var closes = eoc.filter(function (r) { return r.closed; }).length;
+  var cash = eoc.reduce(function (s, r) { return s + r.cash; }, 0);
+
+  var whop = (DATA.whop || []).filter(function (w) { return inRange(w.date); });
+  var whopGross = whop.reduce(function (s, w) { return s + w.gross; }, 0);
+
+  // setter engine baselines from EOD (dials, dial→booking) + team sizes
+  var eodW = (DATA.eod || []).filter(function (r) { return inRange(r.date); });
+  var eodDays = {}; eodW.forEach(function (r) { eodDays[r.date] = 1; });
+  var eodDayCount = Math.max(Object.keys(eodDays).length, 1);
+  var dials = eodW.reduce(function (s, r) { return s + (r.dials || 0); }, 0);
+  var bookedOut = eodW.reduce(function (s, r) { return s + (r.booked || 0); }, 0);
+  var closerSet = {}, setterSet = {};
+  eoc.forEach(function (r) { if (r.closer) closerSet[r.closer] = 1; });
+  eodW.forEach(function (r) { if (r.setter) setterSet[r.setter] = 1; });
+
+  return {
+    prev: prev,
+    // project the CURRENT month (baselined on last month) for most of the month;
+    // in the last week (day 26+) roll forward to plan the coming month
+    next: (new Date().getDate() <= 25) ? projMonthRange(0) : projMonthRange(1),
+    usedFallback: usedFallback, activeDays: activeDays,
+    calls: calls, shows: shows, closes: closes, cash: cash, whopGross: whopGross,
+    callsDay: calls / activeDays,
+    showRate: calls ? shows / calls * 100 : 0,
+    closeRate: shows ? closes / shows * 100 : 0,
+    aov: closes ? cash / closes : 0,
+    dialsDay: dials / eodDayCount,
+    dialRate: dials ? bookedOut / dials * 100 : 0,
+    closersTeam: Math.max(Object.keys(closerSet).length, 1),
+    settersTeam: Math.max(Object.keys(setterSet).length, 1)
+  };
+}
+
+function projModel(v) {
+  var affCallsDay = v.livesDay * v.callsPerLive + v.postsDay * v.callsPerPost;
+  var dialCallsDay = v.dialsDay * v.dialRate / 100;
+  var callsDay = affCallsDay + dialCallsDay + v.organicDay;
+  var calls = callsDay * v.projDays;
+  var shows = calls * v.showRate / 100;
+  var sales = shows * v.closeRate / 100;
+  var revenue = sales * v.aov;
+  var affRev = revenue * v.affShare / 100;
+  var maxCallsDay = v.closersTeam * v.callsPerCloser;
+  return {
+    affCallsDay: affCallsDay, dialCallsDay: dialCallsDay, callsDay: callsDay,
+    calls: calls, shows: shows, sales: sales, revenue: revenue,
+    revDay: v.projDays ? revenue / v.projDays : 0,
+    affRev: affRev, teamRev: revenue - affRev,
+    closersReq: Math.ceil(callsDay / Math.max(v.callsPerCloser, 0.1)),
+    settersReq: v.dialsDay > 0 ? Math.ceil(v.dialsDay / Math.max(v.dialsPerSetter, 1)) : 0,
+    maxCallsDay: maxCallsDay,
+    overCap: callsDay > maxCallsDay + 0.001,
+    setterOver: (v.dialsDay > 0 ? Math.ceil(v.dialsDay / Math.max(v.dialsPerSetter, 1)) : 0) > v.settersTeam
+  };
+}
+
+function projPace(days, b) { // last month's funnel run at next month's length
+  var calls = b.callsDay * days;
+  var shows = calls * b.showRate / 100;
+  var sales = shows * b.closeRate / 100;
+  var revenue = sales * b.aov;
+  return { calls: calls, shows: shows, sales: sales, revenue: revenue, revDay: days ? revenue / days : 0 };
+}
+
+var PROJ_DRIVERS = [
+  { g: 'AFFILIATE ENGINE', k: 'activeAff', l: 'Active affiliates', fmt: 'n', min: 0, maxF: function () { return 20; } },
+  { k: 'livesDay',     l: 'Lives / day (all affiliates)',  fmt: 'd1', min: 0, maxF: function () { return 10; } },
+  { k: 'postsDay',     l: 'Posts / day (all affiliates)',  fmt: 'd1', min: 0, maxF: function () { return 20; } },
+  { k: 'callsPerLive', l: 'Calls booked per live',         fmt: 'd1', min: 0, maxF: function () { return 15; } },
+  { k: 'callsPerPost', l: 'Calls booked per post',         fmt: 'd1', min: 0, maxF: function () { return 5; } },
+  { k: 'affShare',     l: '% of revenue from affiliates',  fmt: 'n',  min: 0, maxF: function () { return 100; } },
+  { g: 'SETTER / OUTBOUND ENGINE', k: 'dialsDay', l: 'Outbound dials / day', fmt: 'n', min: 0, maxF: function (b) { return Math.max(b.dialsDay * 3, 400); } },
+  { k: 'dialRate',   l: 'Dial → booking rate %',           fmt: 'd1', min: 0, maxF: function () { return 10; } },
+  { k: 'organicDay', l: 'Organic / DM calls booked / day', fmt: 'd1', min: 0, maxF: function () { return 25; } },
+  { g: 'SALES CONVERSION', k: 'projDays', l: 'Days in month', fmt: 'n', min: 1, maxF: function () { return 31; } },
+  { k: 'showRate',  l: 'Show rate %',          fmt: 'd1', min: 0, maxF: function () { return 100; } },
+  { k: 'closeRate', l: 'Close rate on shows %', fmt: 'd1', min: 0, maxF: function () { return 100; } },
+  { k: 'aov',       l: 'Avg order value',      fmt: 'n',  min: 0, maxF: function (b) { return Math.max(b.aov * 2.5, 5000); } },
+  { g: 'CAPACITY CHECK', k: 'callsPerCloser', l: 'Calls per closer / day', fmt: 'd1', min: 0.5, maxF: function () { return 12; } },
+  { k: 'closersTeam',    l: 'Closers on team',        fmt: 'n', min: 1,  maxF: function (b) { return Math.max(b.closersTeam * 3, 8); } },
+  { k: 'dialsPerSetter', l: 'Dials per setter / day', fmt: 'n', min: 10, maxF: function () { return 500; } },
+  { k: 'settersTeam',    l: 'Setters on team',        fmt: 'n', min: 1,  maxF: function (b) { return Math.max(b.settersTeam * 3, 8); } }
+];
+
+function projDefaults(b) {
+  var d = {
+    activeAff: 4, livesDay: 1, postsDay: 3, callsPerLive: 6, callsPerPost: 0.5,
+    dialsDay: b.dialsDay > 0 ? b.dialsDay : 200,
+    dialRate: b.dialRate > 0 ? b.dialRate : 1.5,
+    organicDay: 0, affShare: 52,
+    projDays: b.next.days, showRate: b.showRate, closeRate: b.closeRate, aov: b.aov,
+    callsPerCloser: 4, closersTeam: b.closersTeam, dialsPerSetter: 50, settersTeam: b.settersTeam
+  };
+  // organic/DM is the gap-filler: default so modeled calls/day match last month's actual pace
+  var modeled = d.livesDay * d.callsPerLive + d.postsDay * d.callsPerPost + d.dialsDay * d.dialRate / 100;
+  d.organicDay = Math.max(0, Math.round((b.callsDay - modeled) * 10) / 10);
+  return d;
+}
+
+function projInit(preset) {
+  var b = projBaselines();
+  var d = projDefaults(b);
+  var vol  = preset === 'cons' ? 0.85 : preset === 'aggr' ? 1.15 : 1;
+  var rate = preset === 'cons' ? 0.92 : preset === 'aggr' ? 1.08 : 1;
+  PROJ = { b: b, preset: preset || 'avg', v: {
+    activeAff: d.activeAff,
+    livesDay: d.livesDay * vol, postsDay: d.postsDay * vol,
+    callsPerLive: d.callsPerLive * rate, callsPerPost: d.callsPerPost * rate,
+    affShare: preset === 'cons' ? 40 : preset === 'aggr' ? 60 : 52,
+    dialsDay: d.dialsDay * vol, dialRate: d.dialRate * rate, organicDay: d.organicDay * vol,
+    projDays: d.projDays,
+    showRate: Math.min(100, d.showRate * rate),
+    closeRate: Math.min(100, d.closeRate * rate),
+    aov: d.aov * vol,
+    callsPerCloser: d.callsPerCloser, closersTeam: d.closersTeam,
+    dialsPerSetter: d.dialsPerSetter, settersTeam: d.settersTeam
+  } };
+  projPerAff();
+}
+
+function projPreset(p) { projInit(p); projBuild(); }
+function projPerAff() { // remember each affiliate's productivity (lives & posts per affiliate)
+  if (PROJ.v.activeAff > 0) PROJ.perAff = {
+    lives: PROJ.v.livesDay / PROJ.v.activeAff,
+    posts: PROJ.v.postsDay / PROJ.v.activeAff
+  };
+}
+function projReset(k) {
+  var base = projDefaults(PROJ.b);
+  PROJ.v[k] = base[k];
+  projPerAff();
+  projBuild();
+}
+function projSync(keys) {
+  keys.forEach(function (k) {
+    var num = document.getElementById('pn_' + k), rng = document.getElementById('pr_' + k);
+    if (num) num.value = projFmtVal(k, PROJ.v[k]);
+    if (rng) rng.value = PROJ.v[k];
+  });
+}
+function projSet(k, val) {
+  var v = parseFloat(val) || 0;
+  if (k === 'activeAff') {
+    // master lever: scale total lives & posts with headcount, per-affiliate productivity constant
+    var pa = PROJ.perAff || { lives: 0.25, posts: 0.75 };
+    PROJ.v.activeAff = v;
+    PROJ.v.livesDay = Math.round(pa.lives * v * 100) / 100;
+    PROJ.v.postsDay = Math.round(pa.posts * v * 100) / 100;
+    projSync(['activeAff', 'livesDay', 'postsDay']);
+  } else {
+    PROJ.v[k] = v;
+    if (k === 'livesDay' || k === 'postsDay') projPerAff(); // manual tweak redefines per-affiliate rate
+    projSync([k]);
+  }
+  projOut();
+}
+function projFmtVal(k, v) {
+  var d = null; PROJ_DRIVERS.forEach(function (x) { if (x.k === k) d = x; });
+  return d && d.fmt === 'd1' ? (Math.round(v * 10) / 10) : Math.round(v);
+}
+
+function projBuild() {
+  if (!PROJ) projInit('avg');
+  var b = PROJ.b;
+  document.getElementById('projTitle').textContent = b.next.label.toUpperCase() + ' PROJECTION';
+  document.getElementById('projBase').textContent =
+    'Baseline: ' + (b.usedFallback ? 'last 30 days of data' : b.prev.label + ' actuals') +
+    ' (' + b.activeDays + ' active days) · ' + $u(b.cash) + ' cash · ' + $n(b.calls) + ' calls · ' +
+    $n(b.closes) + ' closes' + (b.whopGross ? ' · ' + $u(b.whopGross) + ' Whop gross' : '');
+
+  var hints = {
+    activeAff: 'master lever — dragging this scales lives & posts (per-affiliate output constant)',
+    livesDay: 'no tracker logs lives yet — set manually',
+    postsDay: 'no tracker logs posts yet — set manually',
+    callsPerLive: 'Peyton baseline: 5–7',
+    callsPerPost: 'placeholder — needs Drew’s July actuals',
+    affShare: '40 conservative · 52 July avg · 60 aggressive',
+    dialsDay: b.dialsDay > 0 ? 'avg ' + (Math.round(b.dialsDay)) + '/day · EOD form' : 'no EOD dial data — set manually',
+    dialRate: b.dialRate > 0 ? 'avg ' + b.dialRate.toFixed(1) + '% · EOD booked ÷ dials' : 'industry avg ~1.5% — ask Pierre for real data',
+    organicDay: 'gap-filler — defaults so total matches last month’s pace',
+    projDays: b.next.label.split(' ')[0] + ' has ' + b.next.days + ' days',
+    showRate: 'avg ' + b.showRate.toFixed(1) + '%',
+    closeRate: 'avg ' + b.closeRate.toFixed(1) + '%',
+    aov: 'avg ' + $u(b.aov),
+    callsPerCloser: 'how many booked calls one closer can take',
+    closersTeam: 'auto: ' + b.closersTeam + ' closer(s) in baseline data',
+    dialsPerSetter: 'how many dials one setter can make',
+    settersTeam: 'auto: ' + b.settersTeam + ' setter(s) in baseline data'
+  };
+  document.getElementById('projDrivers').innerHTML =
+    '<div class="proj-presets">' +
+      ['cons|CONSERVATIVE', 'avg|' + (b.usedFallback ? '30-DAY AVG' : b.prev.monthShort.toUpperCase() + ' AVERAGE'), 'aggr|AGGRESSIVE'].map(function (p) {
+        var parts = p.split('|');
+        return '<button class="pp' + (PROJ.preset === parts[0] ? ' on' : '') + '" onclick="projPreset(\'' + parts[0] + '\')">' + parts[1] + '</button>';
+      }).join('') + '</div>' +
+    '<div class="proj-calc" id="projCalc"></div>' +
+    PROJ_DRIVERS.map(function (d) {
+      var max = d.maxF(b);
+      var step = d.fmt === 'd1' ? 0.1 : 1;
+      return (d.g ? '<div class="proj-sec">' + d.g + '</div>' : '') +
+        '<div class="proj-drv">' +
+        '<div class="proj-drv-hd"><span>' + d.l + '</span>' +
+        '<input type="number" id="pn_' + d.k + '" value="' + projFmtVal(d.k, PROJ.v[d.k]) + '" step="' + step + '"' +
+        ' oninput="projSet(\'' + d.k + '\', this.value)"></div>' +
+        '<input type="range" id="pr_' + d.k + '" min="' + d.min + '" max="' + max + '" step="' + step + '" value="' + PROJ.v[d.k] + '"' +
+        ' oninput="projSet(\'' + d.k + '\', this.value)">' +
+        '<div class="proj-drv-ft"><span>' + hints[d.k] + '</span><button class="proj-reset" onclick="projReset(\'' + d.k + '\')">reset</button></div>' +
+      '</div>';
+    }).join('');
+  projOut();
+}
+
+function projOut() {
+  var b = PROJ.b, v = PROJ.v;
+  var m = projModel(v);
+  var pace = projPace(v.projDays, b);
+  var vs = pace.revenue > 0 ? (m.revenue - pace.revenue) / pace.revenue * 100 : 0;
+  var vsTxt = (vs >= 0 ? '+' : '') + vs.toFixed(1) + '% vs ' + (b.usedFallback ? '30-day' : b.prev.monthShort) + ' pace';
+
+  // live "total calls booked / day" readout in the drivers panel
+  var calcEl = document.getElementById('projCalc');
+  if (calcEl) calcEl.innerHTML =
+    'TOTAL CALLS BOOKED / DAY <b>' + (Math.round(m.callsDay * 10) / 10) + '</b>' +
+    ' <span>= ' + (Math.round(m.affCallsDay * 10) / 10) + ' affiliate + ' +
+    (Math.round(m.dialCallsDay * 10) / 10) + ' outbound + ' + (Math.round(v.organicDay * 10) / 10) + ' organic' +
+    ' · target ~13/day (~320/mo) · last month ' + (Math.round(b.callsDay * 10) / 10) + '/day</span>';
+
+  document.getElementById('projHero').innerHTML =
+    '<div class="proj-hero-k">PROJECTED ' + b.next.label.toUpperCase() + ' REVENUE</div>' +
+    '<div class="proj-hero-row"><span class="proj-hero-v">' + $u(m.revenue) + '</span>' +
+    '<span class="proj-badge ' + (vs >= 0 ? 'up' : 'down') + '">' + vsTxt + '</span></div>' +
+    '<div class="proj-hero-s">Revenue / day <b>' + $u(m.revDay) + '</b> · Calls / day <b>' +
+    (Math.round(m.callsDay * 10) / 10) + '</b> · Affiliate share <b>' + Math.round(v.affShare) + '%</b></div>';
+
+  // capacity alarm
+  var alarm = '';
+  if (m.overCap) alarm +=
+    '<div class="proj-alarm bad">⚠ CLOSER BOTTLENECK — this scenario books <b>' + (Math.round(m.callsDay * 10) / 10) +
+    ' calls/day</b> but ' + Math.round(v.closersTeam) + ' closer(s) × ' + (Math.round(v.callsPerCloser * 10) / 10) +
+    '/day = <b>' + (Math.round(m.maxCallsDay * 10) / 10) + ' max</b>. Add closers or trim volume.</div>';
+  if (m.setterOver) alarm +=
+    '<div class="proj-alarm bad">⚠ SETTER BOTTLENECK — ' + Math.round(v.dialsDay) + ' dials/day needs <b>' +
+    m.settersReq + ' setter(s)</b>, team has ' + Math.round(v.settersTeam) + '.</div>';
+  if (!alarm) alarm =
+    '<div class="proj-alarm ok">✓ Capacity OK — ' + Math.round(v.closersTeam) + ' closer(s) can take ' +
+    (Math.round(m.maxCallsDay * 10) / 10) + ' calls/day; the model books ' + (Math.round(m.callsDay * 10) / 10) + '.</div>';
+  document.getElementById('projAlarm').innerHTML = alarm;
+
+  var reqCls = m.closersReq > v.closersTeam ? ' bad' : '';
+  var setCls = m.setterOver ? ' bad' : '';
+  document.getElementById('projCards').innerHTML =
+    '<div class="proj-card"><div class="pc-k">CALLS BOOKED</div><div class="pc-v">' + $n(m.calls) + '</div><div class="pc-s">' + $n(m.shows) + ' projected shows</div></div>' +
+    '<div class="proj-card"><div class="pc-k">SALES</div><div class="pc-v">' + $n(m.sales) + '</div><div class="pc-s">' + (m.sales / Math.max(v.projDays, 1)).toFixed(1) + ' / day at ' + $u(v.aov) + ' AOV</div></div>' +
+    '<div class="proj-card"><div class="pc-k">CLOSERS REQUIRED</div><div class="pc-v' + reqCls + '">' + m.closersReq + ' <span class="pc-of">/ ' + Math.round(v.closersTeam) + '</span></div><div class="pc-s">at ' + (Math.round(v.callsPerCloser * 10) / 10) + ' calls/closer/day</div></div>' +
+    '<div class="proj-card"><div class="pc-k">SETTERS REQUIRED</div><div class="pc-v' + setCls + '">' + m.settersReq + ' <span class="pc-of">/ ' + Math.round(v.settersTeam) + '</span></div><div class="pc-s">at ' + Math.round(v.dialsPerSetter) + ' dials/setter/day</div></div>';
+
+  // affiliate vs sales-team revenue split
+  var splitEl = document.getElementById('projSplit');
+  if (splitEl) {
+    splitEl.style.display = 'block';
+    var pct = Math.max(0, Math.min(100, v.affShare));
+    splitEl.innerHTML =
+      '<div class="ps-hd"><span>REVENUE SPLIT</span><span>affiliates ' + Math.round(pct) + '% · sales team ' + Math.round(100 - pct) + '%</span></div>' +
+      '<div class="ps-bar"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="ps-legend"><span><b>' + $u(m.affRev) + '</b> affiliate-driven</span><span><b>' + $u(m.teamRev) + '</b> sales team / outbound</span></div>';
+  }
+
+  var rows = [
+    ['Revenue', pace.revenue, m.revenue, 'usd'],
+    ['Revenue / day', pace.revDay, m.revDay, 'usd'],
+    ['Calls booked', pace.calls, m.calls, 'n'],
+    ['Shows', pace.shows, m.shows, 'n'],
+    ['Sales', pace.sales, m.sales, 'n']
+  ];
+  document.getElementById('projTable').innerHTML =
+    '<table><thead><tr><th>Metric</th><th>' + (b.usedFallback ? '30-day' : b.prev.monthShort) + ' pace ×' + v.projDays + '</th><th>Your model</th><th>Δ</th></tr></thead><tbody>' +
+    rows.map(function (r) {
+      var f = r[3] === 'usd' ? $u : $n;
+      var d = r[1] !== 0 ? (r[2] - r[1]) / Math.abs(r[1]) * 100 : 0;
+      var cls = Math.abs(d) < 0.5 ? '' : d > 0 ? 'up' : 'down';
+      return '<tr><td class="nm">' + r[0] + '</td><td>' + f(r[1]) + '</td><td class="acc">' + f(r[2]) + '</td>' +
+        '<td><span class="proj-badge sm ' + cls + '">' + (d >= 0 ? '+' : '') + d.toFixed(0) + '%</span></td></tr>';
+    }).join('') + '</tbody></table>' +
+    '<div class="proj-note">Model: calls/day = lives × calls-per-live + posts × calls-per-post + dials × dial-rate + organic; ' +
+    'revenue = calls × show% × close-on-show% × AOV. Show rate, close rate, AOV, dials, dial-rate and team sizes are auto-baselined from ' +
+    (b.usedFallback ? 'the last 30 days of data' : b.prev.label + ' actuals') +
+    '; affiliate inputs are manual until the trackers log lives/posts. The affiliate share % splits projected revenue for the affiliate-vs-team view; ' +
+    'capacity check flags scenarios needing more closers/setters than the team has.</div>';
+}
+
+function renderProjection() {
+  if (!document.getElementById('projTitle')) return;
+  if (!PROJ) projInit('avg'); else PROJ.b = projBaselines();
+  projBuild();
+}
+
+
+// ═══ ASK CLAUDE — AI answers from the live backend ═══
+function askChip(q) { document.getElementById('askInput').value = q; askClaude(); }
+function askClaude() {
+  var q = document.getElementById('askInput').value.trim();
+  var out = document.getElementById('askOut'), go = document.getElementById('askGo');
+  if (!q) return;
+  if (!API_URL) { out.style.display = 'block'; out.innerHTML = '<div class="ask-err">Connect the dashboard to its data source first (⚙).</div>'; return; }
+  out.style.display = 'block';
+  out.innerHTML = '<div class="ask-load">Analyzing your live data…</div>';
+  go.disabled = true;
+  var period = (customFrom || customTo) ? 'custom range' : rng;
+  var projParam = '';
+  if (typeof PROJ === 'object' && PROJ && PROJ.v) {
+    try {
+      var pm = projModel(PROJ.v), rv = {}, k;
+      for (k in PROJ.v) if (PROJ.v.hasOwnProperty(k)) rv[k] = Math.round(PROJ.v[k] * 100) / 100;
+      projParam = '&proj=' + encodeURIComponent(JSON.stringify({ preset: PROJ.preset, drivers: rv, outputs: {
+        callsPerDay: Math.round(pm.callsDay * 10) / 10, callsBooked: Math.round(pm.calls), shows: Math.round(pm.shows),
+        sales: Math.round(pm.sales), projectedRevenue: Math.round(pm.revenue), revenuePerDay: Math.round(pm.revDay),
+        affiliateRevenue: Math.round(pm.affRev), salesTeamRevenue: Math.round(pm.teamRev),
+        closersRequired: pm.closersReq, settersRequired: pm.settersReq, overCloserCapacity: pm.overCap } }));
+    } catch (e2) {}
+  }
+  fetch(API_URL + '?action=ask&period=' + encodeURIComponent(period) + projParam + '&q=' + encodeURIComponent(q))
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      out.innerHTML = j.answer ? mdHtml(j.answer) : '<div class="ask-err">' + (j.error || 'No answer returned.') + '</div>';
+    })
+    .catch(function (e) { out.innerHTML = '<div class="ask-err">Error: ' + e.message + '</div>'; })
+    .finally(function () { go.disabled = false; });
+}
+function mdHtml(md) {
+  function inline(s) {
+    return s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+  var esc = String(md).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  var lines = esc.split(/\r?\n/), html = [], inUl = false, inTbl = false;
+  function closeAll() { if (inUl) { html.push('</ul>'); inUl = false; } if (inTbl) { html.push('</table>'); inTbl = false; } }
+  for (var i = 0; i < lines.length; i++) {
+    var t = lines[i].trim();
+    if (!t) { closeAll(); continue; }
+    if (/^\|.*\|$/.test(t)) {
+      if (/^\|[\s\-:|]+\|$/.test(t)) continue;
+      if (!inTbl) { closeAll(); html.push('<table>'); inTbl = true; }
+      var tag = (i + 1 < lines.length && /^\|[\s\-:|]+\|$/.test(lines[i + 1].trim())) ? 'th' : 'td';
+      html.push('<tr>' + t.slice(1, -1).split('|').map(function (c) { return '<' + tag + '>' + inline(c.trim()) + '</' + tag + '>'; }).join('') + '</tr>');
+      continue;
+    }
+    if (inTbl) { html.push('</table>'); inTbl = false; }
+    var h = t.match(/^(#{1,4})\s+(.*)/);
+    if (h) { closeAll(); html.push('<h4>' + inline(h[2]) + '</h4>'); continue; }
+    var li = t.match(/^[-*\u2022]\s+(.*)/) || t.match(/^\d+[.)]\s+(.*)/);
+    if (li) { if (!inUl) { html.push('<ul>'); inUl = true; } html.push('<li>' + inline(li[1]) + '</li>'); continue; }
+    closeAll(); html.push('<p>' + inline(t) + '</p>');
+  }
+  closeAll();
+  return html.join('');
+}
+
+// ═══ PDF REPORT — AI summary + charts + tables, print-to-PDF ═══
+function genReport() {
+  var out = document.getElementById('askOut');
+  out.style.display = 'block';
+  if (!API_URL) { out.innerHTML = '<div class="ask-err">Connect the dashboard to its data source first (⚙).</div>'; return; }
+  var w = window.open('', '_blank'); // open synchronously so popup blockers allow it
+  if (w) { w.document.write('<title>Building report…</title><body style="font-family:sans-serif;padding:40px;color:#666">Building your report — AI summary, charts &amp; tables…</body>'); }
+  out.innerHTML = '<div class="ask-load">Building your report — AI summary + charts…</div>';
+  var period = (customFrom || customTo) ? 'custom range' : rng;
+  fetch(API_URL + '?action=ask&mode=report&period=' + encodeURIComponent(period) +
+        '&q=' + encodeURIComponent('Generate the performance report for: ' + periodLabel()))
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      if (!j.answer) { if (w) w.close(); out.innerHTML = '<div class="ask-err">' + (j.error || 'Report failed.') + '</div>'; return; }
+      buildPdfReport(j.answer, w);
+      out.innerHTML = '<p style="margin:0;color:#8f8d84;font-size:12px">Report opened in a new tab — it will pop the print dialog; choose “Save as PDF”.</p>';
+    })
+    .catch(function (e) { if (w) w.close(); out.innerHTML = '<div class="ask-err">Error: ' + e.message + '</div>'; });
+}
+function chartImg(cfg, wpx, hpx, cb) {
+  if (typeof Chart === 'undefined') return cb(null);
+  try {
+    var c = document.createElement('canvas');
+    c.width = wpx; c.height = hpx;
+    c.style.cssText = 'position:fixed;left:-99999px;top:0';
+    document.body.appendChild(c);
+    cfg.options = cfg.options || {};
+    cfg.options.animation = false; cfg.options.responsive = false; cfg.options.devicePixelRatio = 2;
+    var ch = new Chart(c.getContext('2d'), cfg);
+    setTimeout(function () { var url = c.toDataURL('image/png'); ch.destroy(); c.remove(); cb(url); }, 80);
+  } catch (e) { cb(null); }
+}
+function buildPdfReport(aiMd, w) {
+  var acc = (getComputedStyle(document.documentElement).getPropertyValue('--y') || '#f7d34a').trim();
+  var blk = (getComputedStyle(document.documentElement).getPropertyValue('--blk') || '#16150f').trim();
+  var name = (document.querySelector('.brand-t') || {}).textContent || 'Sales Team';
+  name = name.replace(/\s+/g, ' ').trim();
+  var eoc = (DATA.eoc || []).filter(function (r) { return inPeriod(r.date); });
+  var eod = (DATA.eod || []).filter(function (r) { return inPeriod(r.date); });
+  var whop = (DATA.whop || []).filter(function (r) { return inPeriod(r.date); });
+  var calls = eoc.length, shows = 0, closes = 0, dqs = 0, cash = 0;
+  eoc.forEach(function (r) { if (r.showed) shows++; if (r.closed) closes++; if (r.dq) dqs++; cash += r.cash || 0; });
+  var wg = 0, wpay = 0; whop.forEach(function (r) { wg += r.gross || 0; wpay += r.payments || 0; });
+  var dials = 0, pickups = 0, booked = 0;
+  eod.forEach(function (r) { dials += r.dials || 0; pickups += r.pickups || 0; booked += r.booked || 0; });
+  var byC = {}, byS = {};
+  eoc.forEach(function (r) {
+    var o = byC[r.closer] = byC[r.closer] || { calls: 0, shows: 0, closes: 0, cash: 0 };
+    o.calls++; if (r.showed) o.shows++; if (r.closed) o.closes++; o.cash += r.cash || 0;
+  });
+  eod.forEach(function (r) {
+    var o2 = byS[r.setter] = byS[r.setter] || { dials: 0, pickups: 0, booked: 0 };
+    o2.dials += r.dials || 0; o2.pickups += r.pickups || 0; o2.booked += r.booked || 0;
+  });
+  var wk = {};
+  eoc.forEach(function (r) { var m = monday(d0(r.date)); var k = m.getFullYear() + '-' + ('0' + (m.getMonth() + 1)).slice(-2) + '-' + ('0' + m.getDate()).slice(-2); wk[k] = (wk[k] || 0) + (r.cash || 0); });
+  var wkKeys = Object.keys(wk).sort().slice(-10);
+  var closerNames = Object.keys(byC).sort(function (a, b) { return byC[b].cash - byC[a].cash; });
+  var cfg1 = { type: 'bar',
+    data: { labels: wkKeys.map(function (k) { return k.slice(5).replace('-', '/'); }),
+      datasets: [{ data: wkKeys.map(function (k) { return Math.round(wk[k]); }), backgroundColor: blk, borderRadius: 4, maxBarThickness: 42 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: function (v) { return '$' + (v >= 1000 ? (v / 1000) + 'k' : v); } } } } } };
+  var cfg2 = { type: 'bar',
+    data: { labels: closerNames, datasets: [{ data: closerNames.map(function (n) { return Math.round(byC[n].cash); }), backgroundColor: acc, borderRadius: 4, maxBarThickness: 42 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: function (v) { return '$' + (v >= 1000 ? (v / 1000) + 'k' : v); } } } } } };
+  chartImg(cfg1, 860, 280, function (img1) {
+    chartImg(cfg2, 860, 280, function (img2) {
+      var esc = function (x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+      var kpi = function (k, v, s) { return '<div class="kpi"><div class="kk">' + k + '</div><div class="kv">' + v + '</div>' + (s ? '<div class="ks">' + s + '</div>' : '') + '</div>'; };
+      var pct = function (a, b) { return b ? (a / b * 100).toFixed(1) + '%' : '—'; };
+      var kpis =
+        (wg ? kpi('REVENUE (WHOP)', $u(wg), wpay + ' payments · gross') : '') +
+        kpi('CASH COLLECTED', $u(cash), 'EOC form') +
+        (wg ? kpi('DIFFERENCE', $u(wg - cash), 'renewals & rebills') : '') +
+        kpi('TOTAL CALLS', $n(calls), 'EOC submissions') +
+        kpi('SHOWS', $n(shows), pct(shows, calls) + ' show rate') +
+        kpi('CLOSES', $n(closes), pct(closes, shows) + ' close rate') +
+        kpi('AOV', closes ? $u(cash / closes) : '—', 'cash ÷ closes') +
+        kpi('DQS', $n(dqs), pct(dqs, calls) + ' DQ rate') +
+        (dials ? kpi('DIALS', $n(dials), $n(booked) + ' calls booked') : '');
+      var cRows = closerNames.map(function (n) {
+        var o = byC[n];
+        return '<tr><td class="nm">' + esc(n) + '</td><td>' + o.calls + '</td><td>' + o.shows + '</td><td>' + pct(o.shows, o.calls) + '</td><td>' + o.closes + '</td><td>' + pct(o.closes, o.shows) + '</td><td>' + $u(o.cash) + '</td><td>' + (o.closes ? $u(o.cash / o.closes) : '—') + '</td></tr>';
+      }).join('');
+      var sRows = Object.keys(byS).sort(function (a, b) { return byS[b].booked - byS[a].booked; }).map(function (n) {
+        var o = byS[n];
+        return '<tr><td class="nm">' + esc(n) + '</td><td>' + $n(o.dials) + '</td><td>' + $n(o.pickups) + '</td><td>' + pct(o.pickups, o.dials) + '</td><td>' + $n(o.booked) + '</td><td>' + pct(o.booked, o.dials) + '</td></tr>';
+      }).join('');
+      var brand = document.querySelector('.side .brand');
+      var brandHtml = brand ? brand.outerHTML : '<div class="brand"><div class="brand-t">' + esc(name) + '</div></div>';
+      var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + esc(name) + ' — Performance Report</title>'
+        + '<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">'
+        + '<style>'
+        + '*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;color:#1c1b15;background:#fff}'
+        + '.page{max-width:820px;margin:0 auto;padding:0 34px 40px}'
+        + '.rhead{background:' + blk + ';color:#fff;padding:26px 34px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 18px 18px}'
+        + '.brand-mark{font-size:22px;color:' + acc + '}.brand-t{font-family:"Archivo Black",sans-serif;font-size:17px;line-height:1.15;letter-spacing:.5px}'
+        + '.brand-s{font-size:8.5px;letter-spacing:2px;color:#8f8d84;font-family:"Space Mono",monospace;margin-top:4px}'
+        + '.brand svg{width:34px;height:34px;margin-bottom:6px}'
+        + '.rh-r{text-align:right}.rh-k{font-size:9px;letter-spacing:2px;color:' + acc + ';font-weight:800}'
+        + '.rh-t{font-family:"Archivo Black",sans-serif;font-size:23px;margin:4px 0 2px}.rh-s{font-size:11px;color:#b8b49e}'
+        + 'h2{font-family:"Archivo Black",sans-serif;font-size:15px;margin:30px 0 12px;padding-left:10px;border-left:5px solid ' + acc + '}'
+        + '.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}'
+        + '.kpi{border:1px solid #e5e3d8;border-radius:11px;padding:12px 14px}'
+        + '.kk{font-size:8.5px;letter-spacing:1.2px;color:#8f8d84;font-weight:700}.kv{font-size:21px;font-weight:800;margin-top:4px}.ks{font-size:9.5px;color:#8f8d84;margin-top:3px}'
+        + '.chart{border:1px solid #e5e3d8;border-radius:11px;padding:14px;margin-top:8px}.chart img{width:100%;display:block}'
+        + '.chart .ct{font-size:10px;letter-spacing:1px;font-weight:800;color:#57554a;margin-bottom:8px}'
+        + 'table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}'
+        + 'th{text-align:left;font-size:9px;letter-spacing:1px;color:#8f8d84;border-bottom:2px solid ' + blk + ';padding:6px 8px}'
+        + 'td{padding:7px 8px;border-bottom:1px solid #ecebe2}td.nm{font-weight:700}tr:nth-child(even) td{background:#faf9f4}'
+        + '.ai{margin-top:8px;font-size:12px;line-height:1.7}.ai h2{margin-top:22px}.ai p{margin:7px 0}'
+        + '.ai ul{margin:7px 0 7px 20px}.ai li{margin:3px 0}.ai b{color:#000}'
+        + '.ai table{margin:10px 0}.ai h4{font-size:12px;margin:14px 0 5px;color:#1c1b15;text-transform:uppercase;letter-spacing:.5px}'
+        + '.foot{margin-top:34px;padding-top:14px;border-top:1px solid #e5e3d8;font-size:9.5px;color:#8f8d84;display:flex;justify-content:space-between}'
+        + '.noprint{position:fixed;top:14px;right:14px;background:' + blk + ';color:#fff;border:none;padding:10px 18px;border-radius:9px;font-weight:700;cursor:pointer}'
+        + '@media print{.noprint{display:none}.rhead{-webkit-print-color-adjust:exact;print-color-adjust:exact}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+        + '@page{margin:14mm 0 16mm}'
+        + '</style></head><body>'
+        + '<button class="noprint" onclick="window.print()">Print / Save as PDF</button>'
+        + '<div class="rhead">' + brandHtml + '<div class="rh-r"><div class="rh-k">PERFORMANCE REPORT</div><div class="rh-t">' + esc(periodLabel()).toUpperCase() + '</div><div class="rh-s">Generated ' + new Date().toLocaleDateString() + '</div></div></div>'
+        + '<div class="page">'
+        + '<div class="kpis">' + kpis + '</div>'
+        + (img1 ? '<h2>Cash Collected by Week</h2><div class="chart"><img src="' + img1 + '"></div>' : '')
+        + (img2 ? '<h2>Cash per Closer</h2><div class="chart"><img src="' + img2 + '"></div>' : '')
+        + '<h2>AI Analysis</h2><div class="ai">' + mdHtml(aiMd) + '</div>'
+        + '<h2>Closer Breakdown</h2><table><tr><th>CLOSER</th><th>CALLS</th><th>SHOWS</th><th>SHOW %</th><th>CLOSES</th><th>CLOSE %</th><th>CASH</th><th>AOV</th></tr>' + cRows + '</table>'
+        + (sRows ? '<h2>Setter Breakdown</h2><table><tr><th>SETTER</th><th>DIALS</th><th>PICKUPS</th><th>PICKUP %</th><th>CALLS BOOKED</th><th>DIAL→BOOK %</th></tr>' + sRows + '</table>' : '')
+        + '<div class="foot"><span>' + esc(name) + ' · Sales OS</span><span>AI summary by Ask Claude · data live from the sales dashboard</span></div>'
+        + '</div>'
+        + '<scr' + 'ipt>window.onload=function(){setTimeout(function(){window.print();},700);};</scr' + 'ipt>'
+        + '</body></html>';
+      if (!w) { w = window.open('', '_blank'); }
+      if (!w) { alert('Popup blocked — allow popups to open the report.'); return; }
+      w.document.open(); w.document.write(html); w.document.close();
+    });
+  });
+}
+
 
 // ── BOOT ───────────────────────────────────────────────────────────
 window.onload = function () {
